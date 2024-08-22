@@ -1,0 +1,26 @@
+module.exports = {
+  testEnvironment: 'node',
+  testTimeout: 1200000,
+  setupFilesAfterEnv: ['./jest/jest.setup.js'],
+  testRegex: ['src/.*\\.test\\.(js|ts)$', 'tests/.*-test\\.(js|ts)$'],
+  transform: {
+    '\\.(js|ts)$': ['esbuild-jest', { sourcemap: true }],
+    '\\.graphql$': 'jest-transform-graphql',
+  },
+  transformIgnorePatterns: ['node_modules/(?!set-interval-async)'],
+  reporters: ['default', ['jest-junit', { outputDirectory: './test-results/jest/', outputName: 'results.xml' }]],
+  collectCoverageFrom: ['src/**/*.js', 'src/**/*.ts'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/src/migrations',
+    '/src/utils',
+    '/src/config',
+    '/src/database/indexing.js',
+    '/src/database/migration.js',
+    '/src/app.js',
+    '/src/httpServer.js',
+    '/src/index.js',
+    '/src/indexer.js',
+    '/src/initialization.js',
+  ],
+};
